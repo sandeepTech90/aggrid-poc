@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { AgGridReact } from "ag-grid-react"; // React Grid Logic
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { CarObj, generateDummyData } from "../utils/randomNumber";
 import CustomFilter from "./CustomFilter";
-import { ColDef } from "@ag-grid-community/core";
+import { ColDef, GroupCellRenderer } from "@ag-grid-community/core";
 import CustomHeader from "./CustomHeader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import PopupTable from './PopupTable';
 
 const SHOW_COUNT = 5;
 
@@ -16,6 +17,9 @@ const GridExample = () => {
   const allCols = useSelector((state: RootState) => state.column);
   // Row Data: The data to be displayed.
   const defs = [
+    {  headerName:"More Data",field: "model", cellRenderer:()=>{return <span onClick={() => {
+      openPopup();
+;}}>View More</span>} },
     {
       field: "make",
       // rowDrag: true,
@@ -27,7 +31,8 @@ const GridExample = () => {
         params.data.make === "more_items" ? (
           <div
             onClick={() => {
-              setHidden(false);
+              
+              (false);
             }}
             style={{
               height: "fit",
@@ -41,11 +46,13 @@ const GridExample = () => {
           params.data.make
         ),
     },
+
     {
       field: "model",
       suppressHeaderMenuButton: true,
       headerComponentParams: { menuIcon: "fa-external-link-alt" },
     },
+   
     { field: "price", filter: "agNumberColumnFilter" },
     { field: "color", filter: "agTextColumnFilter" },
     { field: "fuel_type", headerName: "Fuel", filter: CustomFilter },
@@ -61,10 +68,13 @@ const GridExample = () => {
   ];
 
   // const tempData
-  const [hidden, setHidden] = useState(true);
+  const [hidden, setHidden] = useState(false);
   const [allData, setAllData] = useState<CarObj[]>([]);
   const [rowData, setRowData] = useState<CarObj[]>([]);
   const [colDefs, setColDefs] = useState(defs);
+
+
+
 
   useEffect(() => {
     const data = generateDummyData();
@@ -125,7 +135,20 @@ const GridExample = () => {
     };
   }, []);
   // Container: Defines the grid's theme & dimensions.
+
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    console.log('open popup');
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
   return (
+    <Fragment>
     <div
       className={"ag-theme-quartz"}
       style={{ width: "100%", height: "100%" }}
@@ -143,6 +166,12 @@ const GridExample = () => {
         rowDragEntireRow={true}
       />
     </div>
+
+    <PopupTable isOpen={isPopupOpen} onClose={closePopup} />
+  
+
+ </Fragment>
+
   );
 };
 
