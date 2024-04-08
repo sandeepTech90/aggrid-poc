@@ -8,21 +8,22 @@ const Columns = () => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "start",
-        border: "1px dashed gray",
-        borderRadius: "5px",
-        padding: "1rem",
-      }}
+      // style={{
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "start",
+      //   border: "1px dashed gray",
+      //   borderRadius: "5px",
+      //   padding: "1rem",
+      // }}
+      className="border border-dashed p-4 border-slate-400"
     >
       <p
-        style={{
-          fontWeight: "500",
-          marginBottom: "1rem",
-          color: "gray",
-        }}
+      // style={{
+      //   fontWeight: "500",
+      //   marginBottom: "1rem",
+      //   color: "gray",
+      // }}
       >
         Filter Columns
       </p>
