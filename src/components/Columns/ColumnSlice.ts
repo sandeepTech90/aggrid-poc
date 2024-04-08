@@ -1,11 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-// type ColumnType = { key: string; label: string; selected: boolean };
-
-// export interface ColumnsState {
-//   value: ColumnType[];
-// }
-
 const initialState = [
   {
     key: "make",
@@ -48,9 +42,6 @@ const initialState = [
     selected: true,
   },
 ];
-// const initialState2 = {
-//   value: 0,
-// };
 export const columnSlice = createSlice({
   name: "columns",
   initialState,
@@ -63,8 +54,14 @@ export const columnSlice = createSlice({
       currState[ind].selected = checked;
       state = currState;
     },
+    updateCols: (state, action) => {
+      const { cols } = action.payload;
+      console.log(current(state)[0]);
+      state = cols;
+      console.log(state[0]);
+    },
   },
 });
 
-export const { updateCol } = columnSlice.actions;
+export const { updateCol, updateCols } = columnSlice.actions;
 export default columnSlice.reducer;

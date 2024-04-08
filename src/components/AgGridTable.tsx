@@ -14,11 +14,11 @@ const SHOW_COUNT = 5;
 // Create new GridExample component
 const GridExample = () => {
   const allCols = useSelector((state: RootState) => state.column);
+
   // Row Data: The data to be displayed.
   const defs = [
     {
       field: "make",
-      // rowDrag: true,
       colSpan: (params: { data: { make: string } }) => {
         if (params.data.make === "more_items") return 7;
         return 1;

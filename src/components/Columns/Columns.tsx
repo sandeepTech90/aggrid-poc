@@ -1,69 +1,51 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { updateCol } from "./ColumnSlice";
+import { updateCol, updateCols } from "./ColumnSlice";
+import Button from "../ui/Button";
+import Dropdown from "../ui/Dropdown";
+import { useState } from "react";
 
 const Columns = () => {
   const allCols = useSelector((state: RootState) => state.column);
   const dispatch = useDispatch();
+  const [thisCols, setThisCols] = useState(allCols);
 
   return (
-    <div
-      // style={{
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   alignItems: "start",
-      //   border: "1px dashed gray",
-      //   borderRadius: "5px",
-      //   padding: "1rem",
-      // }}
-      className="border border-dashed p-4 border-slate-400"
-    >
-      <p
-      // style={{
-      //   fontWeight: "500",
-      //   marginBottom: "1rem",
-      //   color: "gray",
-      // }}
-      >
-        Filter Columns
-      </p>
-      <div style={{ display: "flex", gap: "1rem" }}>
-        {allCols.map((col, index) => (
+    <Dropdown placeholder="Filter Columns">
+      <div>
+        {thisCols.map((col) => (
           <div
+            className="flex gap-1 items-center hover:bg-slate-300 px-2 py-1 cursor-pointer"
             key={col.key}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.2rem",
-            }}
           >
             <input
               type="checkbox"
+              value={col.key}
               checked={col.selected}
-              style={{ padding: "2px" }}
-              onChange={(state) =>
+              onChange={(state) => {
                 dispatch(
                   updateCol({ colid: col.key, checked: state.target.checked })
-                )
-              }
+                );
+                setThisCols((prev) =>
+                  prev.map((c) => {
+                    if (c.key === col.key) {
+                      return { ...c, selected: state.target.checked };
+                    }
+                    return c;
+                  })
+                );
+              }}
             />
-            <p style={{ fontSize: "12px", fontWeight: "500" }}>{col.label}</p>
+            <p className="text-xs font-medium">{col.label}</p>
           </div>
         ))}
       </div>
-      {/* <button
-        style={{
-          backgroundColor: "cornflowerblue",
-          color: "white",
-          alignSelf: "flex-end",
-          fontWeight: "500",
-          letterSpacing: "1px",
-        }}
-      >
-        Apply
-      </button> */}
-    </div>
+      {/* <Button
+        text="Apply"
+        onClick={() => dispatch(updateCols({ cols: thisCols }))}
+        className="w-full mt-3"
+      /> */}
+    </Dropdown>
   );
 };
 
