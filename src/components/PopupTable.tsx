@@ -20,7 +20,7 @@ const PopupTable: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const response = await fetch('https://www.ag-grid.com/example-assets/olympic-winners.json');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -32,10 +32,10 @@ const PopupTable: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const columnDefs: ColDef[] = [
-    { field: 'userId', headerName: 'User ID', sortable: true, filter: true },
-    { field: 'id', headerName: 'ID', sortable: true, filter: true },
-    { field: 'title', headerName: 'Title', sortable: true, filter: true },
-    { field: 'body', headerName: 'Body', sortable: true, filter: true }
+    { field: "athlete", headerName: 'Owner Name', sortable: true, filter: true },
+    { field: 'country', headerName: 'Country', sortable: true, filter: true },
+    { field: 'age', headerName: 'Owner Age', sortable: true, filter: true },
+    { field: 'year', headerName: 'Registration Year', sortable: true, filter: true }
   ];
 
   return (
