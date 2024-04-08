@@ -1,7 +1,6 @@
 import "./App.css";
 import GridExample from "./components/AgGridTable";
 import Columns from "./components/Columns/Columns";
-// import { Counter } from "./components/Counter/Counter";
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         width: "100%",
       }}
     >
-      {/* <Counter /> */}
       <Columns />
       <GridExample />
     </div>
