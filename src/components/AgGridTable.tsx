@@ -4,7 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { CarObj, generateDummyData } from "../utils/randomNumber";
 import CustomFilter from "./CustomFilter";
-import { ColDef, GroupCellRenderer } from "@ag-grid-community/core";
+import { ColDef } from "@ag-grid-community/core";
 import CustomHeader from "./CustomHeader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -24,7 +24,7 @@ const GridExample = () => {
       cellRenderer: () => {
         return (
           <i
-            className="fa-solid fa-eye"
+            className="fa-solid fa-eye text-blue-500"
             onClick={() => {
               openPopup();
             }}
@@ -47,13 +47,7 @@ const GridExample = () => {
             onClick={() => {
               false;
             }}
-            style={{
-              height: "fit",
-              color: "red",
-              background: "#e1dede",
-              fontWeight: "bolder",
-              cursor: "pointer",
-            }}
+            className="h-fit text-red-500 bg-gray-300 font-extrabold cursor-pointer"
           >{`+ ${allData.length - rowData.length + 1} more rows`}</div>
         ) : (
           params.data.make
@@ -161,10 +155,7 @@ const GridExample = () => {
   };
   return (
     <Fragment>
-      <div
-        className={"ag-theme-quartz"}
-        style={{ width: "100%", height: "100%" }}
-      >
+      <div className={"ag-theme-quartz h-full w-full"}>
         <AgGridReact
           rowData={rowData}
           columnDefs={colDefs}
