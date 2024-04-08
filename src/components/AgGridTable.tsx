@@ -8,7 +8,7 @@ import { ColDef, GroupCellRenderer } from "@ag-grid-community/core";
 import CustomHeader from "./CustomHeader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import PopupTable from './PopupTable';
+import PopupTable from "./PopupTable";
 
 const SHOW_COUNT = 5;
 
@@ -18,9 +18,23 @@ const GridExample = () => {
 
   // Row Data: The data to be displayed.
   const defs = [
-    {  headerName:"More Data",field: "model", cellRenderer:()=>{return <span onClick={() => {
-      openPopup();
-;}}>View More</span>} },
+    {
+      headerName: "More Data",
+      field: "more",
+      cellRenderer: () => {
+        return (
+          <i
+            className="fa-solid fa-eye"
+            onClick={() => {
+              openPopup();
+            }}
+          ></i>
+        );
+      },
+      sortable: false,
+      filter: false,
+      pinned: null,
+    },
     {
       field: "make",
       colSpan: (params: { data: { make: string } }) => {
@@ -31,8 +45,7 @@ const GridExample = () => {
         params.data.make === "more_items" ? (
           <div
             onClick={() => {
-              
-              (false);
+              false;
             }}
             style={{
               height: "fit",
@@ -52,7 +65,7 @@ const GridExample = () => {
       suppressHeaderMenuButton: true,
       headerComponentParams: { menuIcon: "fa-external-link-alt" },
     },
-   
+
     { field: "price", filter: "agNumberColumnFilter" },
     { field: "color", filter: "agTextColumnFilter" },
     { field: "fuel_type", headerName: "Fuel", filter: CustomFilter },
@@ -72,9 +85,6 @@ const GridExample = () => {
   const [allData, setAllData] = useState<CarObj[]>([]);
   const [rowData, setRowData] = useState<CarObj[]>([]);
   const [colDefs, setColDefs] = useState(defs);
-
-
-
 
   useEffect(() => {
     const data = generateDummyData();
@@ -102,7 +112,10 @@ const GridExample = () => {
       colMap[c.key] = c;
     });
     setColDefs((prev) =>
-      prev.map((col) => ({ ...col, hide: !colMap[col.field].selected }))
+      prev.map((col) => ({
+        ...col,
+        hide: colMap[col.field] ? !colMap[col.field].selected : false,
+      }))
     );
   }, [allCols]);
 
@@ -136,11 +149,10 @@ const GridExample = () => {
   }, []);
   // Container: Defines the grid's theme & dimensions.
 
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
-    console.log('open popup');
+    console.log("open popup");
     setIsPopupOpen(true);
   };
 
@@ -149,29 +161,26 @@ const GridExample = () => {
   };
   return (
     <Fragment>
-    <div
-      className={"ag-theme-quartz"}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={colDefs}
-        paginationPageSizeSelector={[10, 100, 500, 1000, 5000]}
-        paginationPageSize={1000}
-        // pagination={true}
-        reactiveCustomComponents
-        components={components}
-        defaultColDef={defaultColDef}
-        rowDragManaged={true}
-        rowDragEntireRow={true}
-      />
-    </div>
+      <div
+        className={"ag-theme-quartz"}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={colDefs}
+          paginationPageSizeSelector={[10, 100, 500, 1000, 5000]}
+          paginationPageSize={1000}
+          // pagination={true}
+          reactiveCustomComponents
+          components={components}
+          defaultColDef={defaultColDef}
+          rowDragManaged={true}
+          rowDragEntireRow={true}
+        />
+      </div>
 
-    <PopupTable isOpen={isPopupOpen} onClose={closePopup} />
-  
-
- </Fragment>
-
+      <PopupTable isOpen={isPopupOpen} onClose={closePopup} />
+    </Fragment>
   );
 };
 

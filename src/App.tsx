@@ -4,15 +4,7 @@ import Columns from "./components/Columns/Columns";
 
 function App() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-        height: "100%",
-        width: "100%",
-      }}
-    >
+    <div className="flex flex-col gap-4 h-full w-full">
       <Columns />
       <GridExample />
     </div>
