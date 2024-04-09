@@ -8,7 +8,7 @@ import { ColDef } from "@ag-grid-community/core";
 import CustomHeader from "./CustomHeader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import PopupTable from "./PopupTable";
+import PopupTable from "./tablePopup/PopupTable";
 
 const SHOW_COUNT = 5;
 
@@ -86,15 +86,27 @@ const GridExample = () => {
   }, []);
 
   useEffect(() => {
+    renderLessItem();
+   
+  }, [hidden, allData]);
+
+
+  const renderLessItem=()=>{
+    console.log(hidden);
     if (hidden) {
       setRowData([
         ...allData.slice(0, SHOW_COUNT),
         { make: "more_items" },
         ...allData.slice(allData.length - SHOW_COUNT, allData.length),
       ]);
+      console.log('resetting item')
     } else setRowData(allData);
     setColDefs(defs);
-  }, [hidden, allData]);
+    console.log('resetting item2')
+
+  }
+
+
 
   useEffect(() => {
     setColDefs(defs);
@@ -147,7 +159,10 @@ const GridExample = () => {
 
   const openPopup = () => {
     console.log("open popup");
+    renderLessItem();
     setIsPopupOpen(true);
+    
+
   };
 
   const closePopup = () => {
@@ -170,7 +185,7 @@ const GridExample = () => {
         />
       </div>
 
-      <PopupTable isOpen={isPopupOpen} onClose={closePopup} />
+      <PopupTable isOpen={isPopupOpen} onClose={closePopup} onReopen={setHidden} />
     </Fragment>
   );
 };
