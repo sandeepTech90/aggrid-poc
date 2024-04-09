@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { updateCol, updateCols } from "./ColumnSlice";
-import Button from "../ui/Button";
+import { updateCol } from "./ColumnSlice";
 import Dropdown from "../ui/Dropdown";
 import { useState } from "react";
 
@@ -12,6 +11,7 @@ const Columns = () => {
 
   return (
     <Dropdown placeholder="Filter Columns">
+      <input type="text" placeholder="Search column" />
       <div>
         {thisCols.map((col) => (
           <div
