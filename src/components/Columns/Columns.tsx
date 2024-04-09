@@ -9,9 +9,21 @@ const Columns = () => {
   const dispatch = useDispatch();
   const [thisCols, setThisCols] = useState(allCols);
 
+  const filterCols = (e: any) => {
+    const query = e.target.value;
+    setThisCols(() => {
+      if (query !== "") {
+        return allCols.filter((c) =>
+          c.label.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+        );
+      }
+      return allCols;
+    });
+  };
+
   return (
     <Dropdown placeholder="Filter Columns">
-      <input type="text" placeholder="Search column" />
+      <input type="text" placeholder="Search column" onChange={filterCols} />
       <div>
         {thisCols.map((col) => (
           <div
