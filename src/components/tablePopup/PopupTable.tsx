@@ -10,6 +10,8 @@ interface Props {
   onClose: () => void;
 }
 
+const DEFAULT_COUNT = 5;
+
 const PopupTable: React.FC<Props> = ({ isOpen, onClose }) => {
   const [allData, setAllData] = useState([]);
   const [rowData, setRowData] = useState<any[]>([]);
@@ -19,14 +21,15 @@ const PopupTable: React.FC<Props> = ({ isOpen, onClose }) => {
     if (isOpen) {
       fetchData();
     }
+    return () => setHidden(true);
   }, [isOpen]);
 
   useEffect(() => {
     if (hidden) {
       setRowData(() => [
-        ...allData.slice(0, 10),
+        ...allData.slice(0, DEFAULT_COUNT),
         { country: "more" },
-        ...allData.slice(allData.length - 10, allData.length),
+        ...allData.slice(allData.length - DEFAULT_COUNT, allData.length),
       ]);
     } else {
       setRowData(allData);
