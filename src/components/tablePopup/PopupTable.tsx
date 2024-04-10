@@ -3,13 +3,11 @@ import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import './tablePopUp.css';
+import "./tablePopUp.css";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  
- 
 }
 
 const PopupTable: React.FC<Props> = ({ isOpen, onClose }) => {

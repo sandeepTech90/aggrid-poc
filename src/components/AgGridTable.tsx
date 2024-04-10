@@ -87,11 +87,9 @@ const GridExample = () => {
 
   useEffect(() => {
     renderLessItem();
-   
   }, [hidden, allData]);
 
-
-  const renderLessItem=()=>{
+  const renderLessItem = () => {
     console.log(hidden);
     if (hidden) {
       setRowData([
@@ -99,14 +97,9 @@ const GridExample = () => {
         { make: "more_items" },
         ...allData.slice(allData.length - SHOW_COUNT, allData.length),
       ]);
-      console.log('resetting item')
     } else setRowData(allData);
     setColDefs(defs);
-    console.log('resetting item2')
-
-  }
-
-
+  };
 
   useEffect(() => {
     setColDefs(defs);
@@ -161,8 +154,6 @@ const GridExample = () => {
     console.log("open popup");
     renderLessItem();
     setIsPopupOpen(true);
-    
-
   };
 
   const closePopup = () => {
@@ -185,7 +176,11 @@ const GridExample = () => {
         />
       </div>
 
-      <PopupTable isOpen={isPopupOpen} onClose={closePopup} onReopen={setHidden} />
+      <PopupTable
+        isOpen={isPopupOpen}
+        onClose={closePopup}
+        onReopen={setHidden}
+      />
     </Fragment>
   );
 };

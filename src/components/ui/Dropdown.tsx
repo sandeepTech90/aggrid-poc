@@ -34,7 +34,7 @@ const Dropdown = (props: DropdownProps) => {
       <Button
         onClick={() => setOpenDropdown((prev) => !prev)}
         text={placeholder}
-        className="!bg-white text-black border-slate-400 border"
+        className="!bg-white !text-black border-slate-400 border"
       />
       <div
         className={`absolute h-[15rem] overflow-y-auto mt-0.5 bg-white z-[9999] border-slate-400 border p-2 rounded-md  min-w-[10rem] ${
