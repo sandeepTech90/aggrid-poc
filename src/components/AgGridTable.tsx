@@ -90,7 +90,6 @@ const GridExample = () => {
   }, [hidden, allData]);
 
   const renderLessItem = () => {
-    console.log(hidden);
     if (hidden) {
       setRowData([
         ...allData.slice(0, SHOW_COUNT),
